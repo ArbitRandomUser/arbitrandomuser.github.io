@@ -2,32 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-    <loc>https://arbitrandomuser.github.io/menu3/index.html</loc>
-    <lastmod>2022-01-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
-    <loc>https://arbitrandomuser.github.io/menu4/index.html</loc>
-    <lastmod>2022-01-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
-    <loc>https://arbitrandomuser.github.io/javisstuff/index.html</loc>
-    <lastmod>2022-02-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
-    <loc>https://arbitrandomuser.github.io/javisstuff/tut1/index.html</loc>
-    <lastmod>2022-02-22</lastmod>
+    <loc>https://arbitrandomuser.github.io/posts/javisfromscratch/index.html</loc>
+    <lastmod>2022-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
     <loc>https://arbitrandomuser.github.io/posts/index.html</loc>
-    <lastmod>2022-02-22</lastmod>
+    <lastmod>2022-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://arbitrandomuser.github.io/posts/javistut2/index.html</loc>
+    <lastmod>2022-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://arbitrandomuser.github.io/menu3/index.html</loc>
+    <lastmod>2022-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -38,8 +32,8 @@
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>https://arbitrandomuser.github.io/menu2/index.html</loc>
-    <lastmod>2022-06-24</lastmod>
+    <loc>https://arbitrandomuser.github.io/menu4/index.html</loc>
+    <lastmod>2022-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -52,6 +46,30 @@
 <url>
     <loc>https://arbitrandomuser.github.io/menu1/index.html</loc>
     <lastmod>2022-01-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://arbitrandomuser.github.io/javisstuff/getting_started/index.html</loc>
+    <lastmod>2022-06-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://arbitrandomuser.github.io/menu2/index.html</loc>
+    <lastmod>2022-01-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://arbitrandomuser.github.io/javisstuff/index.html</loc>
+    <lastmod>2022-02-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://arbitrandomuser.github.io/javisstuff/tut1/index.html</loc>
+    <lastmod>2022-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>

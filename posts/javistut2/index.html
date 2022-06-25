@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+     <link rel="stylesheet" href="/libs/highlight/github.min.css">
+   
+    <link rel="stylesheet" href="/css/franklin.css">
+<link rel="stylesheet" href="/css/tufte.css">
+<link rel="stylesheet" href="/css/latex.css">
+<link rel="stylesheet" href="/css/adjust.css"> <!-- sheet to overwrite some clashing styles -->
+<link rel="icon" href="/assets/favicon.png">
+
+     <title>Drawing a line. </title>  
+</head>
+
+<body>
+<div id="layout">
+  <div id="menu">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <!-- <li><a href="/menu1/">writings</a></li>
+      <li><a href="/menu2/">Projects</a></li>
+      <li><a href="/menu4/">miscs</a></li>
+      <li><a href="/javisstuff/">Javis Tutorials</a></li>-->
+    </ul>
+  </div>
+  <div id="main">
+
+
+
+<!-- Content appended here -->
+<div class="franklin-content"><h1 id="drawing_a_line"><a href="#drawing_a_line" class="header-anchor">Drawing a line. </a></h1>
+<pre><code class="language-julia">using Javis
+video&#61;Video&#40;500,500&#41;
+
+function ground&#40;&#41;
+    background&#40;&quot;white&quot;&#41;
+    sethue&#40;&quot;red&quot;&#41;
+end
+
+Background&#40;1:5, &#40;args...&#41; -&gt; ground&#40;&#41;&#41;
+
+Object&#40;1:5, &#40;args...&#41; -&gt; line&#40;O,Point&#40;100,100&#41;,:stroke&#41;&#41;
+Object&#40;1:5, &#40;args...&#41; -&gt; line&#40;O,Point&#40;100,100&#41;,:stroke&#41;&#41;
+render&#40;video,pathname&#61;&quot;vid.mp4&quot;&#41;</code></pre>
+<p>again lets dissect whats new here.</p>
+<h4 id="function_ground"><a href="#function_ground" class="header-anchor"><code>function ground&#40;&#41;</code></a></h4>
+<p>The function makes calls to two <code>Luxor</code> functions . <code>background</code> and <code>sethue</code>. <code>background</code> is used to set the color of the background of a luxor canvas, and <code>sethue</code> sets the color of the <code>stroke</code> marks.</p>
+<h4 id="background15_args_-_ground"><a href="#background15_args_-_ground" class="header-anchor"><code>Background&#40;1:5, &#40;args...&#41; -&gt; ground&#40;&#41;&#41;</code></a></h4>
+<p>Background is just another Object really , but its slightly different . Its function like all objects functions is called only once every frame. Javis also records all the settings that the <code>Background</code> changes for example <code>sethue</code> , and between rendering of every objects resets the setting  to that of the background setting. This way the <code>Background</code> provides a default setting before drawing every <code>Object</code> in the video. So now our frames 1 to 5 have a white background and a default drawing color of red.</p>
+<div class="page-foot">
+  <div class="copyright">
+    &copy; John George Francis. Last modified: June 25, 2022. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>, theme modified from tuftecss.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+        </div> <!-- end of id=main -->
+    </div> <!-- end of id=layout -->
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>

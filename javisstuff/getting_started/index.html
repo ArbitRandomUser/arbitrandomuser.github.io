@@ -4,14 +4,15 @@
   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    
+     <link rel="stylesheet" href="/libs/highlight/github.min.css">
+   
     <link rel="stylesheet" href="/css/franklin.css">
 <link rel="stylesheet" href="/css/tufte.css">
 <link rel="stylesheet" href="/css/latex.css">
 <link rel="stylesheet" href="/css/adjust.css"> <!-- sheet to overwrite some clashing styles -->
 <link rel="icon" href="/assets/favicon.png">
 
-     <title>Arbit Random Blog</title>  
+     <title>Getting Started</title>  
 </head>
 
 <body>
@@ -30,10 +31,16 @@
 
 
 <!-- Content appended here -->
-<div class="franklin-content"><h1 id="the_arbitrary_random_blog"><a href="#the_arbitrary_random_blog" class="header-anchor">The Arbitrary Random Blog</a></h1>
-<h2 id="section1"><a href="#section1" class="header-anchor">section1</a></h2>
-<p><a href="posts">posts</a></p>
-<h2 id="section2"><a href="#section2" class="header-anchor">section2</a></h2>
+<div class="franklin-content"><p>Almost all of Javis drawing is done through the <a href="https://github.com/JuliaGraphics/Luxor.jl">Luxor</a>, familiarizing yourself with <code>Luxor</code> will go a long way in helping you use Javis. He&#39;re we&#39;ll have a small primer with Luxor.</p>
+<p>Although <code>Luxor</code> can be used standalone, almost all of its functions are available when you import Javis. lets dive into some code &#33;</p>
+<pre><code class="language-julia">using Luxor
+Drawing&#40;&#41;
+move&#40;Point&#40;0,0&#41;&#41;
+line&#40; Point&#40;0,0&#41; , Point&#40;100,0&#41; &#41;
+line&#40; currentpoint&#40;&#41;, Point&#40;100,100&#41; &#41;
+finish&#40;&#41;
+preview&#40;&#41;</code></pre>
+<p>a watered down version of how <code>Luxor</code></p>
 <div class="page-foot">
   <div class="copyright">
     &copy; John George Francis. Last modified: June 24, 2022. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>, theme modified from tuftecss.
@@ -43,6 +50,10 @@
         </div> <!-- end of id=main -->
     </div> <!-- end of id=layout -->
     
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
     
   </body>
 </html>
