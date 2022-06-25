@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/css/adjust.css"> <!-- sheet to overwrite some clashing styles -->
 <link rel="icon" href="/assets/favicon.png">
 
-     <title>Javis from scratch.  </title>  
+     <title>Javis from Scratch</title>  
 </head>
 
 <body>
@@ -33,7 +33,7 @@
 
 <!-- Content appended here -->
 <div class="franklin-content"><h1 id="javis_from_scratch"><a href="#javis_from_scratch" class="header-anchor">Javis from scratch.  </a></h1>
-<p>If you are a beginner to <code>julia</code> and making Animations with <code>Javis</code>. Some things can seem outright confusing  and &quot;magical&quot; &#40;atleast i thought so&#41; . One sort of gets the rough idea and has to toysaround the examples  , tweaking and playing with things and sometimes even looking at parts of the source to really <code>groks</code> it. I hope this article fast tracks you to a better understanding of how <code>Javis</code> works internally, which will perhaps go a long way in helping you use Javis to make Animations.</p>
+<p>If you are a beginner to <code>julia</code> and making Animations with <code>Javis</code>. Some things can seem outright confusing  and &quot;magical&quot; &#40;atleast i thought so&#41; . One sort of gets the rough idea and has to toysaround the examples  , tweaking and playing with things and sometimes even looking at parts of the source to really <code>groks</code> it. I hope this article fast tracks you to a slightly better understanding of how <code>Javis</code> works internally, which will perhaps go a long way in helping you use Javis to make Animations, and eventually extend Javis yourself.</p>
 <p>This might be a slow tutorial and is meant to be a compliment the <a href="">Javis tutorials</a>. While the  Javis tutorials allow you to jump right into making some animations. These are more slow paced and attempt to give a rough idea of whats going on under the hood.</p>
 <h2 id="the_most_boring_javis_program"><a href="#the_most_boring_javis_program" class="header-anchor">The most boring Javis program .</a></h2>
 <p>It might be helpful to start from scratch ... like really from the scratch &#33; . Heres a bit of code. Execute it and see. It really does nothing.</p>
@@ -78,7 +78,7 @@ render&#40;video,pathname&#61;&quot;vid.gif&quot;&#41;</code></pre>
 <pre><code class="language-julia">function ground&#40;&#41;</code></pre>
 <p>The function makes calls to two <code>Luxor</code> functions . <code>background</code> and <code>sethue</code>. <code>background</code> is used to set the color of the background of a luxor canvas, and <code>sethue</code> sets the color of the <code>stroke</code> marks.</p>
 <pre><code class="language-julia">Background&#40;1:5, &#40;args...&#41; -&gt; ground&#40;&#41;&#41;</code></pre>
-<p><code>Background</code> is just another <code>Object</code> really , but its slightly different . Its function like all objects functions is called only once every frame. Javis also records all the settings that the <code>Background</code> changes for example <code>sethue</code> , and between rendering of every objects resets the setting  to that of the background setting. This way the <code>Background</code> provides a default setting before drawing every <code>Object</code> in the video. So now our frames 1 to 5 have a white background and a default drawing color of red. </p>
+<p><code>Background</code> is just another <code>Object</code> really , but its slightly different . Its function like all objects functions is called only once every frame. Javis also records all the settings that the <code>Background</code> changes &#40;for example <code>sethue</code>&#41; , and between rendering of every objects resets the setting  to that of the background setting. This way the <code>Background</code> provides a default setting before drawing every <code>Object</code> in the video. So now our frames 1 to 5 have a white background and a default drawing color of red. </p>
 <p>We have two objects here </p>
 <pre><code class="language-julia">Object&#40;1:5, &#40;args...&#41; -&gt; drawcircle&#40;&quot;green&quot;&#41; &#41;</code></pre>
 <p>This calls the drawcircle function . the <code>drawcircle</code> function makes calls two <code>Luxor</code> functions. <code>sethue</code> and <code>circle</code>. <code>sethue</code> changes the current color to its argument <code>color</code>. and <code>circle</code> here draws a circle of radius 100 centered at O &#40; <code>O</code> is shorthand for Point&#40;0,0&#41; in <code>Luxor</code>&#41;.</p>
@@ -104,7 +104,7 @@ render&#40;video,pathname&#61;&quot;vid.gif&quot;&#41;</code></pre>
 </li>
 </ul>
 <p>After all the frames are made they are stitched into a gif this time.</p>
-<p><img src="/posts/vid.gif" alt="" /></p>
+<p><img src="/posts/javisfromscratch/vid.gif" alt="" /></p>
 <p>vid.gif</p>
 <div class="page-foot">
   <div class="copyright">
