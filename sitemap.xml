@@ -2,12 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-    <loc>https://arbitrandomuser.github.io/posts/javisfromscratch/index.html</loc>
-    <lastmod>2022-06-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
     <loc>https://arbitrandomuser.github.io/posts/index.html</loc>
     <lastmod>2022-06-25</lastmod>
     <changefreq>monthly</changefreq>
@@ -15,6 +9,12 @@
 </url>
 <url>
     <loc>https://arbitrandomuser.github.io/posts/javistut2/index.html</loc>
+    <lastmod>2022-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://arbitrandomuser.github.io/posts/javisfromscratch/index.html</loc>
     <lastmod>2022-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
