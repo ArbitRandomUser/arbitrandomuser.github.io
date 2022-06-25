@@ -33,15 +33,16 @@
 
 <!-- Content appended here -->
 <div class="franklin-content"><h1 id="javis_from_scratch"><a href="#javis_from_scratch" class="header-anchor">Javis from scratch.  </a></h1>
-<p>If you are a beginner to <code>julia</code> and making Animations with <code>Javis</code>. Some things can seem outright confusing  and &quot;magical&quot; &#40;atleast i thought so&#41; . One sort of gets the rough idea and has to toysaround the examples  , tweaking and playing with things and sometimes even looking at parts of the source to really <code>groks</code> it. I hope this article fast tracks you to a slightly better understanding of how <code>Javis</code> works internally, which will perhaps go a long way in helping you use Javis to make Animations, and eventually extend Javis yourself.</p>
-<p>This might be a slow tutorial and is meant to be a compliment the <a href="">Javis tutorials</a>. While the  Javis tutorials allow you to jump right into making some animations. These are more slow paced and attempt to give a rough idea of whats going on under the hood.</p>
+<p>If you are a beginner to <code>julia</code> and making Animations with <code>Javis</code>. Some things can seem outright confusing  and &quot;magical&quot; &#40;atleast i thought so&#41; . One sort of gets the rough idea and has to toysaround the examples  , tweaking and playing with things and sometimes even looking at parts of the source to really <code>groks</code> it. I hope this article fast tracks you to a slightly better understanding of how <code>Javis</code> works internally, which will perhaps go a long way in helping you use Javis to make Animations, and if your&#39;re enterprising enough ... extend Javis yourself.</p>
+<p>This might be a slow tutorial and is meant to be a compliment the <a href="https://juliaanimators.github.io/Javis.jl/stable/tutorials/">Javis tutorials</a>. While the  Javis tutorials allow you to jump right into making some animations, these are more slow paced and attempt to give a rough idea of whats going on under the hood.</p>
 <h2 id="the_most_boring_javis_program"><a href="#the_most_boring_javis_program" class="header-anchor">The most boring Javis program .</a></h2>
-<p>It might be helpful to start from scratch ... like really from the scratch &#33; . Heres a bit of code. Execute it and see. It really does nothing.</p>
+<p>Lets start from scratch&#33; Heres a bit of code.  This is one of the simplest valid code you can write with Javis that makes a video.  Execute it and see. It really does nothing.</p>
 <pre><code class="language-julia">using Javis
 video&#61;Video&#40;500,500&#41;
 Object&#40;1:5,&#40;v,o,f&#41; -&gt; nothing &#41;
 render&#40;video,pathname&#61;&quot;vid.mp4&quot;&#41;</code></pre>
-<p>Okay its going to warn you about some <code>Background</code> not being there  but otherwise its going to make an empty video called <code>vid.mp4</code> in the directory  Lets dissect this code .</p>
+<p>Okay its going to warn you about some <code>Background</code> not being there. Otherwise it runs fine and is  going to make a video called <code>vid.mp4</code> in the directory you ran the script in . If you open the video its just going to be black.</p>
+<p>Lets dissect this code.</p>
 <pre><code class="language-julia">video&#61;Video&#40;500,500&#41;</code></pre>
 <p>after this line you will see no reference to this <code>video</code> instance anywhere in your code except until <code>render</code> . This is because when a <code>Video</code> is made <code>Javis</code> internally keeps track of it as <code>Javis.CURRENT_VIDEO</code> , all <code>Object</code>s created are then added to this <code>video</code>. We can make  only one video at a time &#40;for now&#41;.</p>
 <pre><code class="language-julia">Object&#40;1:5,&#40;v,o,f&#41; -&gt; nothing&#41;</code></pre>
@@ -51,11 +52,11 @@ render&#40;video,pathname&#61;&quot;vid.mp4&quot;&#41;</code></pre>
 </blockquote>
 <p>In this example our function is the <a href="https://docs.julialang.org/en/v1/manual/functions/#man-anonymous-functions">anonymous function</a> <code>&#40;v,o,f&#41; -&gt; nothing</code>. This function takes 3 arguments and returns <code>nothing</code>. Functions passed to <code>Object</code> must take atleast 3 arguments. You will see soon why. The <code>UnitRange</code> specifies the frames this <code>Object</code> is going to exist for &#40; frame 1 to frame 5 &#41;. Javis automatically decides how long this video is going to be. Since there is only one object existing upto frame 5 this video is going to be 5 frames long.</p>
 <pre><code class="language-julia">render&#40;video,pathname&#61;&quot;vid.mp4&quot;&#41;</code></pre>
-<p>This is where all the magic happens. Javis first precalculates how many frames are going to be there &#40;5 in this example&#41;. . Then iterates through every frame. At every frame Javis  makes a <code>Luxor</code> Canvas, then iterates through all the <code>objects</code> that exist in the <code>video</code> , looking if the object should appear in  the frame or not . If it is to appear in the frame it calls the objects function &#40;<code>&#40;v,o,f&#41;-nothing</code> in the example&#41;. The 3 arguments passed to the function are <code>video</code> &#40;the video that is rendering&#41; , <code>object</code> &#40;the object and its fields itself are accesible inside the function&#41; and <code>frame</code> the frame number.</p>
+<p>This is where all the magic happens. Javis first precalculates how many frames are going to be there &#40;5 in this example&#41;, then iterates through every frame number to generate a frame. At every framenumber Javis  makes a <code>Luxor</code> Canvas. Things will be drawn on this canvas and converted to a frame. Javis iterates through all the <code>objects</code> that exist in the <code>video</code> , looking if the object should appear in the frame or not. If it is to appear in the frame it calls the objects function &#40;<code>&#40;v,o,f&#41;-nothing</code> in the example&#41;. The 3 arguments passed to the function are <code>video</code> &#40;the video that is rendering&#41; , <code>object</code> &#40;the object and its fields itself are accesible inside the function&#41; and <code>frame</code> the frame number.</p>
 <blockquote>
 <p>You can also  <a href="https://docs.julialang.org/en/v1/base/base/#...">splat</a> them like this <code>&#40;args...&#41; -&gt; nothing</code>. </p>
 </blockquote>
-<p>Like mentioned before typically this will have calls to <code>Luxor</code> functions to draw something on the canvas. After it goes through every object it takes the canvas and turns it into a frame of the video. The canvas is cleared for the next frame. After all the frames are rendered , they&#39;re all stitched up into a video converted to an mp4 file and saved at <code>pathname</code>.</p>
+<p>Like mentioned before typically this will have calls to <code>Luxor</code> functions to draw something on the canvas. After it goes through every object it takes the canvas and turns it into a frame of the video. The canvas is cleared for the next frame. After all the frames are rendered , they&#39;re all stitched up into a mp4  video at an apropriate frame rate &#40;default is 30&#41;, and saved at <code>pathname</code>.</p>
 <h2 id="drawing_a_line"><a href="#drawing_a_line" class="header-anchor">Drawing a line. </a></h2>
 <pre><code class="language-julia">using Javis
 video&#61;Video&#40;500,500&#41;
@@ -103,9 +104,9 @@ render&#40;video,pathname&#61;&quot;vid.gif&quot;&#41;</code></pre>
 <li><p>frame is saved.</p>
 </li>
 </ul>
-<p>After all the frames are made they are stitched into a gif this time.</p>
-<p><img src="/posts/javisfromscratch/vid.gif" alt="" /></p>
-<p>vid.gif</p>
+<p>After all the frames are made they are stitched into a gif this time. </p>
+<p><img src="/posts/javisfromscratch/vid.gif" alt="" /> vid.gif</p>
+<p>Ofcourse nothing is really animated , .. we&#39;ll get to that in furthur posts.</p>
 <div class="page-foot">
   <div class="copyright">
     &copy; John George Francis. Last modified: June 25, 2022. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>, theme modified from tuftecss.
