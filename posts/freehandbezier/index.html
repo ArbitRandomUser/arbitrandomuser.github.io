@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+    <link rel="stylesheet" href="/css/franklin.css">
+<link rel="stylesheet" href="/css/tufte.css">
+<link rel="stylesheet" href="/css/latex.css">
+<link rel="stylesheet" href="/css/adjust.css"> <!-- sheet to overwrite some clashing styles -->
+<link rel="icon" href="/assets/favicon.png">
+
+     <title>Machine Learning (curve fitting) Bezier curves with Enzyme AD and Wasm</title>  
+</head>
+
+<body>
+<div id="layout">
+  <div id="menu">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <!-- <li><a href="/menu1/">writings</a></li>
+      <li><a href="/menu2/">Projects</a></li>
+      <li><a href="/menu4/">miscs</a></li>
+      <li><a href="/javisstuff/">Javis Tutorials</a></li>-->
+    </ul>
+  </div>
+  <div id="main">
+
+
+
+<!-- Content appended here -->
+<div class="franklin-content"><p>Calling this machine learning is tenuous , but hey&#33; atleast the title isn&#39;t &quot;using AI to ...&quot; . The basic idea here is a canvas on which one can draw curves, and a program finds the closest possible cubic bezier and render it on an SVG.  There exists a &quot;loss value&quot; which is the distance of the curve points from a bezier curve. The bezier with the smallest loss value will have the points of the drawn curve closest to it . It turns out one can have a closed form solution to the minima as shown <a href="https://www.jimherold.com/computer-science/best-fit-bezier-curve">here</a></p>
+<p>The curve fitting is written in C and compiled to wasm . For automatic differentation the excellent Enzyme AD is used. Enzyme can perform AD on LLVM IR the intermediate representation that clang produces before compiling it all down to wasm.</p>
+<p>It isn&#39;t perfect ofcourse, for one drawing a really complex curvy shape may not find a good fit to a bezier after all. Thats expected i guess since curves with more than two &quot;squigles&quot; cannot certainly be made by a cubic bezier. Sometimes even simple curves dont fit very well. Theres also the problem of memory. I&#39;m using a simple bump allocater in this blog <a href="https://surma.dev/things/c-to-webassembly/">here</a>. There&#39;s no implementation of <code>free</code>, drawing curves eventually fills up the memory buffer and you get errors.</p>
+<p>Check it out <a href="/thangs/freehandbezier">here</a></p>
+<p>Source can be found <a href="http://github.com/arbitrandomuser/freehandbezier">here</a></p>
+<div class="page-foot">
+  <div class="copyright">
+    &copy; John George Francis. Last modified: October 13, 2023. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>, theme modified from tuftecss.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+        </div> <!-- end of id=main -->
+    </div> <!-- end of id=layout -->
+    
+    
+  </body>
+</html>

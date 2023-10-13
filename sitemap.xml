@@ -20,6 +20,12 @@
     <priority>0.5</priority>
 </url>
 <url>
+    <loc>https://arbitrandomuser.github.io/posts/freehandbezier/index.html</loc>
+    <lastmod>2023-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
     <loc>https://arbitrandomuser.github.io/posts/javistut2/index.html</loc>
     <lastmod>2022-06-25</lastmod>
     <changefreq>monthly</changefreq>
@@ -40,6 +46,12 @@
 <url>
     <loc>https://arbitrandomuser.github.io/menu1/index.html</loc>
     <lastmod>2022-01-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://arbitrandomuser.github.io/thangs/freehandbezier/index/</loc>
+    <lastmod>2023-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
