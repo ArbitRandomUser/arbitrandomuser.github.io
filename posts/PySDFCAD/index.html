@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+    <link rel="stylesheet" href="/css/franklin.css">
+<link rel="stylesheet" href="/css/tufte.css">
+<link rel="stylesheet" href="/css/latex.css">
+<link rel="stylesheet" href="/css/adjust.css"> <!-- sheet to overwrite some clashing styles -->
+<link rel="icon" href="/assets/favicon.png">
+
+     <title>Python SDF CAD</title>  
+</head>
+
+<body>
+<div id="layout">
+  <div id="menu">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <!-- <li><a href="/menu1/">writings</a></li>
+      <li><a href="/menu2/">Projects</a></li>
+      <li><a href="/menu4/">miscs</a></li>
+      <li><a href="/javisstuff/">Javis Tutorials</a></li>-->
+    </ul>
+  </div>
+  <div id="main">
+
+
+
+<!-- Content appended here -->
+<div class="franklin-content"><h1 id="sdf_cad"><a href="#sdf_cad" class="header-anchor">SDF CAD </a></h1>
+<p><a href="/thangs/pysdfcad">Check it out here</a></p>
+<p>SDF&#39;s are pretty neat&#33;,  A function generated from simple mathematical functions but can make some really complex geometry. If you want to see some really beautiful examples go no furthur than shadertoy.com. Would you believe the following scene was not made in some complicated software with hundreds and thousands of menus and buttons backed multi billion dollar corporation,  but its just some 400 lines of <code>C</code> like code typed into an editor. Its even animated &#33;. Inigo Quilez who runs the website, is a well known personality in the graphics space and has some really well put explanations on how SDF&#39;s work &#40;link here&#41;. </p>
+<p>I wont go into detail how SDF&#39;s work. The gist is that its a way to represent the &quot;distance&quot; to a surface of an &quot;object&quot;. Its a function that when evaluated at some point in space will tell you how far the nearest surface to the object is. On the surface of the object the sdf value ofcourse is 0. Thats it, its easy and known how to construct SDF&#39;s for some primitive objects like spheres, cubes, cones, cylinders, prisms etc. Theres a way to combine them by putting them through another function. You can take intersections and subtract one object from another. Rotate, move, elongate, scale lot of great stuff&#33;. Whats neat is that you can also round the corners and edges very trivially in this representation. When combining two objects you can smoothly combine them too &#33; &#40;figure below&#41;. NEAT&#33;. Rendering them is a matter of doing a thing called raymarching, fairly simple to generate shadows and lighting. I think anyone who&#39;s even slightly mathematically inclined is mindblown when first coming across SDF&#39;s and shadertoy. You really should check it out if you haven&#39;t.</p>
+<p>As a 3Dprinting nerd one of the first things this got me thinking was what if this was a way to design objects for 3D printing. I&#39;m not the first to think of this, there&#39;s a dozen of implementations of SDF&#39;s for generating models out there &#40;sdfx, fogleman/sdf&#41;. I wrote a simple tool with 3 key features. The language of &quot;drawing&quot; is Python. It runs in your browser &#40;pyodide&#41; and can be viewed in the browser &#40;sdfx and sdf.py dont have a viewer&#41;. You can generate STL&#39;s &#40;marching cubes&#41; for 3d printing. Almost all the primitives from Inigo Quilez &#40;link here&#41; are supported. Combining objects with unions, intersections , subtractions and there respetive smoothened versions are there. Scaling, elongate, rotation , translation, even twisting and bending&#33;. All with Python&#33;, All in your browser&#33;.</p>
+<p>How does this work? You type your python code in the editor. The browser runs the code in pyodide &#40;a python implementation running in WASM&#41; which generates a sort of tree of the objects that you added to the scene. When you hit recompile it recursively goes throught the tree generating and SDF of your scene in glsl. The shader is then raymarched to show you what it looks like. GenerateSTL first evalutates the SDF at gridpoints and stores them in a framebuffer to be returned to JS,  then uses marching cubes on these points generate a mesh and export as STL, for this i used the <code>marching-cubes-fast</code> library.</p>
+<p>While the SDF&#39;s listed on this page assume you can pass functions around, thats not true in glsl. Hence at such transforms we introduce a block scope and compute what the function would do, essentially inlining it. Every <code>gen_glsl</code> method of an Object takes two parameters , <code>pcoord</code> and <code>target_var</code>. The <code>gen_glsl</code> then might introduce a new block &#123;&#125; where it does some computation or for primitive objects just compute the sdf &#40;<code>target_var &#61; sphere&#40;pcoord,...&#41;</code>&#41;. The final result of this computation is stored in <code>target_var</code>. Depending on the type of Object this involves computing new temporary coordinates from the passed in <code>pcoord</code> &#40;for rotation, translation, elongation etc&#41;, evaluating its childrens <code>gen_glsl</code> on the transformed pcoord, storing the childrens <code>gen_glsl</code> into a temporary target to be accumulated into the passed down <code>target_var</code> etc &#40;for ex for union&#41;. The leaves of the tree are the primitive objects like Sphere which have no children it simply evaluates its respective sdf. The primitives are defined in <code>pre.frag</code>.</p>
+<p>The STL generation needs more work to be done, right now its generating points by evaluating the sdf on a grid and saving to a 3d texture , this is unfeasable for high resolution due to limited VRAM, The default resolution is kept to 128 points on a cube of -5 to &#43;5 in all dimensions.</p>
+<p>I hope you have fun with it.</p>
+<div class="page-foot">
+  <div class="copyright">
+    &copy; John George Francis. Last modified: August 24, 2025. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>, theme modified from tuftecss.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+        </div> <!-- end of id=main -->
+    </div> <!-- end of id=layout -->
+    
+    
+  </body>
+</html>
